@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मराठी शब्द खेळ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="container">
+            <h1>मराठी शब्द खेळ</h1>
+            <p class="subtitle">Learn to read Marathi words!</p>
+
+            <div class="letter-select">
+                <h3>Choose a letter to practice:</h3>
+                <div id="letter-buttons" class="letter-grid">
+                    <!-- Letters will be populated by JS -->
+                </div>
+            </div>
+
+            <button id="start-btn" class="btn btn-primary btn-large" disabled>
+                Start Practice
+            </button>
+
+            <button id="stats-btn" class="btn btn-secondary">
+                📊 View Progress
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="progress-info">
+                <span id="session-progress">1 / 10</span>
+                <div class="streak-display">
+                    <span class="fire">🔥</span>
+                    <span id="streak-count">0</span>
+                </div>
+            </div>
+            <div class="stars-display" id="stars-display">
+                ☆ ☆ ☆ ☆ ☆
+            </div>
+        </div>
+
+        <div class="word-container">
+            <div class="word-display" id="word-display">
+                <span class="first-letter" id="first-letter">म</span><span class="rest-letters" id="rest-letters">न</span>
+            </div>
+        </div>
+
+        <div class="hint-section">
+            <button id="hint-toggle" class="btn btn-hint">Show Hint 👁️</button>
+            <div id="hint-content" class="hint-content hidden">
+                <p class="spelling">Spelling: <span id="spelling"></span></p>
+                <p class="meaning">Meaning: <span id="meaning"></span></p>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button id="wrong-btn" class="btn btn-wrong">
+                <span class="btn-icon">✗</span>
+                <span class="btn-text">Wrong</span>
+            </button>
+            <button id="correct-btn" class="btn btn-correct">
+                <span class="btn-icon">✓</span>
+                <span class="btn-text">Correct!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Reward Screen -->
+    <div id="reward-screen" class="screen">
+        <div class="reward-container">
+            <div class="reward-animal" id="reward-animal">🦁</div>
+            <div class="reward-message" id="reward-message">शाब्बास!</div>
+            <div class="reward-submessage" id="reward-submessage">You're doing great!</div>
+            <div class="reward-stars">⭐ ⭐ ⭐</div>
+            <button id="continue-btn" class="btn btn-primary btn-large">
+                Continue ▶
+            </button>
+        </div>
+    </div>
+
+    <!-- Session Complete Screen -->
+    <div id="complete-screen" class="screen">
+        <div class="complete-container">
+            <h1>🎉 Session Complete!</h1>
+
+            <div class="final-stars" id="final-stars">
+                ⭐ ⭐ ⭐ ⭐ ☆
+            </div>
+            <p class="stars-label" id="stars-label">4 Stars!</p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-icon">✓</span>
+                    <span class="stat-value" id="final-correct">0</span>
+                    <span class="stat-label">Correct</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">✗</span>
+                    <span class="stat-value" id="final-incorrect">0</span>
+                    <span class="stat-label">Incorrect</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">📊</span>
+                    <span class="stat-value" id="final-accuracy">0%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-value" id="final-streak">0</span>
+                    <span class="stat-label">Best Streak</span>
+                </div>
+            </div>
+
+            <div class="words-mastered">
+                <h3>Words Practiced: <span id="words-practiced">0</span></h3>
+            </div>
+
+            <div class="complete-buttons">
+                <button id="play-again-btn" class="btn btn-primary btn-large">
+                    Play Again 🔄
+                </button>
+                <button id="home-btn" class="btn btn-secondary">
+                    Home 🏠
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Screen -->
+    <div id="stats-screen" class="screen">
+        <div class="stats-container">
+            <h1>📊 Progress Report</h1>
+
+            <div class="stats-summary">
+                <div class="summary-card">
+                    <span class="summary-icon">⭐</span>
+                    <span class="summary-value" id="total-stars">0</span>
+                    <span class="summary-label">Total Stars</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-icon">📚</span>
+                    <span class="summary-value" id="words-mastered-count">0</span>
+                    <span class="summary-label">Words Mastered</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-icon">🎮</span>
+                    <span class="summary-value" id="sessions-count">0</span>
+                    <span class="summary-label">Sessions</span>
+                </div>
+            </div>
+
+            <div class="candy-tracker">
+                <h3>🍬 Candy Progress</h3>
+                <p>Stars needed for candy: <strong>15</strong></p>
+                <div class="candy-progress-bar">
+                    <div class="candy-progress-fill" id="candy-progress-fill"></div>
+                </div>
+                <p id="candy-status">5 more stars needed!</p>
+            </div>
+
+            <div class="history-section">
+                <h3>Recent Sessions</h3>
+                <div id="session-history" class="session-history">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>Parent Controls</h3>
+                <button id="reset-candy-btn" class="btn btn-secondary">
+                    Reset Candy Counter 🍬
+                </button>
+                <button id="clear-data-btn" class="btn btn-danger">
+                    Clear All Data ⚠️
+                </button>
+            </div>
+
+            <button id="back-btn" class="btn btn-primary">
+                ← Back to Game
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
