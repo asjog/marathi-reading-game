@@ -114,45 +114,19 @@ async function initializeGame() {
 }
 
 async function findAvailableLetters() {
-    // Generate all possible Marathi letter combinations programmatically
-    const consonants = [
-        'क', 'ख', 'ग', 'घ', 'च', 'छ', 'ज', 'झ', 'ट', 'ठ',
-        'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ',
-        'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह'
-    ];
-    const vowels = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ए', 'ऐ', 'ओ', 'औ'];
-    const matras = ['ा', 'ि', 'ी', 'ु', 'ू', 'े', 'ै', 'ो', 'ौ', 'ं'];
-
-    const marathiLetters = [];
-
-    // Add vowels
-    marathiLetters.push(...vowels);
-
-    // Add consonants (plain)
-    marathiLetters.push(...consonants);
-
-    // Add all consonant + matra combinations
-    for (const consonant of consonants) {
-        for (const matra of matras) {
-            marathiLetters.push(consonant + matra);
+    // Load available letters from manifest file (fast, single request)
+    try {
+        const response = await fetch('data/manifest.json');
+        if (response.ok) {
+            const manifest = await response.json();
+            return manifest.letters || [];
         }
+    } catch (e) {
+        console.error('Error loading manifest:', e);
     }
 
-    const available = [];
-
-    // Try to fetch each CSV file to see which ones exist
-    for (const letter of marathiLetters) {
-        try {
-            const response = await fetch(`data/${letter}.csv`);
-            if (response.ok) {
-                available.push(letter);
-            }
-        } catch (e) {
-            // File doesn't exist, skip
-        }
-    }
-
-    return available.length > 0 ? available : ['म']; // Default to म if none found
+    // Fallback: return empty array if manifest fails
+    return [];
 }
 
 function renderLetterButtons(letters) {
