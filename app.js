@@ -87,13 +87,26 @@ const screens = {
 
 // ============ INITIALIZATION ============
 document.addEventListener('DOMContentLoaded', async () => {
-    await initializeGame();
-    setupEventListeners();
+    try {
+        await initializeGame();
+        setupEventListeners();
+    } catch (error) {
+        console.error('Initialization error:', error);
+        document.getElementById('letter-buttons').innerHTML =
+            '<p style="color: red;">Error loading game. Please refresh or check console.</p>';
+    }
 });
 
 async function initializeGame() {
     // Load available letter CSV files
     const availableLetters = await findAvailableLetters();
+
+    if (availableLetters.length === 0) {
+        document.getElementById('letter-buttons').innerHTML =
+            '<p style="color: orange;">No word files found. Make sure CSV files are in data/ folder.</p>';
+        return;
+    }
+
     renderLetterButtons(availableLetters);
 
     // Load saved progress from localStorage

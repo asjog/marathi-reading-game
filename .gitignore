@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Original/backup CSV files (keep only the split ones)
+*-original.csv
+
+# Python cache
+__pycache__/
+*.pyc

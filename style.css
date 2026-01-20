@@ -59,6 +59,7 @@ body {
     padding: 30px;
     box-shadow: var(--shadow);
     text-align: center;
+    overflow-x: auto;
 }
 
 /* Typography */
@@ -179,16 +180,20 @@ h3 {
 .letter-select {
     margin: 20px 0;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 .letter-grid {
     margin-top: 10px;
+    min-width: min-content;
 }
 
 .letter-table {
     border-collapse: separate;
-    border-spacing: 6px;
+    border-spacing: 4px;
     margin: 0 auto;
+    width: max-content;
 }
 
 .letter-table td {
@@ -198,14 +203,15 @@ h3 {
 .letter-btn {
     background: #f0f0f0;
     border: 2px solid transparent;
-    border-radius: 10px;
-    padding: 10px 8px;
-    min-width: 48px;
-    font-size: 1.2rem;
+    border-radius: 8px;
+    padding: 8px 6px;
+    min-width: 40px;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
     display: block;
     width: 100%;
+    white-space: nowrap;
 }
 
 .letter-btn:hover:not(:disabled) {
@@ -617,8 +623,26 @@ h3 {
     .reward-container,
     .complete-container,
     .stats-container {
-        padding: 20px;
+        padding: 15px;
         border-radius: 20px;
+    }
+
+    /* Letter table mobile styles */
+    .letter-select {
+        margin: 10px -15px;
+        padding: 0 15px;
+        width: calc(100% + 30px);
+    }
+
+    .letter-table {
+        border-spacing: 3px;
+    }
+
+    .letter-btn {
+        min-width: 36px;
+        padding: 6px 4px;
+        font-size: 1rem;
+        border-radius: 6px;
     }
 
     .word-display {
@@ -627,6 +651,15 @@ h3 {
 
     .reward-animal {
         font-size: 6rem;
+    }
+
+    .reward-image {
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .reward-emoji {
+        font-size: 3rem;
     }
 
     .stats-summary {
